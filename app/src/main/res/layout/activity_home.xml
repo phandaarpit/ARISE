@@ -10,29 +10,14 @@
     tools:context="arise.arise.org.arise.HomeActivity">
 
     <LinearLayout
+        android:id="@+id/main_home"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include
-            layout="@layout/app_bar"
-            android:id="@+id/app_bar">
-        </include>
 
-        <org.arise.tab.SlidingTabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </org.arise.tab.SlidingTabLayout>
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/pager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-
-        </android.support.v4.view.ViewPager>
     </LinearLayout>
+    
     <fragment
         android:id="@+id/fragment_navigation_drawer"
         android:layout_width="@dimen/nav_drawer_width"
@@ -41,9 +26,5 @@
         app:layout="@layout/fragment_navigation_drawer"
         tools:layout="@layout/fragment_navigation_drawer"
         android:layout_gravity="start"
-        >
-
-
-    </fragment>
-
+        />
 </android.support.v4.widget.DrawerLayout>

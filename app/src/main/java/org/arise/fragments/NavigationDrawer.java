@@ -8,9 +8,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import org.arise.adapters.NavigationListAdapter;
+import org.arise.listeners.NavigationDrawerListener;
 
 import arise.arise.org.arise.R;
 
@@ -21,7 +26,7 @@ public class NavigationDrawer extends Fragment {
 
     private ActionBarDrawerToggle actionToggle;
     private DrawerLayout drawerLayout;
-
+    private ListView listview;
     private String userKnowsDrawerExistKey = "user_knows";
 
     private boolean userAwareOfDrawer;
@@ -36,6 +41,8 @@ public class NavigationDrawer extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("Inside Drawer", "calling");
+
         userAwareOfDrawer = Boolean.valueOf(readFromPreferences(getActivity(),userKnowsDrawerExistKey,"false"));
 
         if(savedInstanceState!=null)
@@ -47,9 +54,11 @@ public class NavigationDrawer extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
-        return inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+        View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+        listview = (ListView)layout.findViewById(R.id.list_options);
+        listview.setAdapter(new NavigationListAdapter(getActivity()));
+        listview.setOnItemClickListener(new NavigationDrawerListener(getActivity()));
+        return layout;
     }
 
 
@@ -88,6 +97,7 @@ public class NavigationDrawer extends Fragment {
             }
         });
         drawerLayout.setDrawerListener(actionToggle);
+
     }
 
     public static void writeToSharedPreferences(Context context, String preference, String preferenceValue)

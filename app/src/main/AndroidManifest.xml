@@ -24,7 +24,19 @@
         </activity>
         <activity
             android:name=".HomeActivity"
-            android:label="@string/title_activity_home">
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name=".TestActivity"
+            android:label="Test" >
+        </activity>
+        <activity
+            android:name=".AboutArise"
+            android:label="@string/title_activity_about_arise" >
+        </activity>
+        <activity
+            android:name=".AboutUser"
+            android:label="@string/title_activity_about_user" >
         </activity>
     </application>
 

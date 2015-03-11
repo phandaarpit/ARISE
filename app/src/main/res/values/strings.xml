@@ -26,4 +26,14 @@
     <string name="drawer_open">open</string>
     <string name="drawer_close">close</string>
 
+    <string-array name="navigation_drawer_items">
+        <item>Home</item>
+        <item>About Me</item>
+        <item>About ARISE</item>
+        <item>Logout</item>
+    </string-array>
+
+    <string name="title_activity_about_arise">AboutArise</string>
+    <string name="title_activity_about_user">AboutUser</string>
+
 </resources>

@@ -1,78 +1,84 @@
 package arise.arise.org.arise;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.arise.enums.Options;
+import org.arise.enums.SharedPreferenceEnum;
+import org.arise.interfaces.IAsyncInterface;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-public class LoginActivity extends ActionBarActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class LoginActivity extends ActionBarActivity implements IAsyncInterface {
+
+    private String username;
+    private String password;
+    private boolean credentialsPresent;
+    private final String url = "http://172.17.14.191/ARISE/login.php";
+
+    private EditText usernameEditText;
+    private EditText passwordEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        if (credentialsPresent()) {
+            Toast.makeText(getApplicationContext(),"credentials present",Toast.LENGTH_SHORT).show();
+            credentialsPresent = true;
+            login();
+        } else {
+            setContentView(R.layout.activity_login);
+            Toast.makeText(getApplicationContext(),"credentials not present",Toast.LENGTH_SHORT).show();
 
-        TextView linkToRegistration = (TextView)findViewById(R.id.link_to_registration);
-
-        //check if the password is stored in sharedPreferences
-        //if true fetch the credentials and decrypt them
-        if(credentialsPresent())
-        {
-            //httppost to login.php
-            //create a new session
-//            SharedPreferences.Editor editor = getSharedPreferences("password", 0).edit();
-//            editor.putString("password", "your password");
-//            editor.commit();
-        }
-        else
-        {
-            //get the current login id and password from the activity
-            //check if the user exists in database
-            if(userExist())
-            {
-                //store the new credentials in sharedPreferences
-
-                //switch to new Home Activity
-
-            }
-            else
-            {
-                //user doesnt exist, ask for them to fill the credentials again
-            }
+            usernameEditText = (EditText) findViewById(R.id.username_text);
+            passwordEditText = (EditText) findViewById(R.id.password_text);
         }
     }
 
-    private boolean userExist() {
-        //check if the username passed from the
-        return false;
+    private void login() {
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
+        nameValuePairs.add(new BasicNameValuePair(SharedPreferenceEnum.EMAIL.toString(), username));
+        nameValuePairs.add(new BasicNameValuePair(SharedPreferenceEnum.PASSWORD.toString(), password));
+        nameValuePairs.add(new BasicNameValuePair("url", url));
+        new AsyncTaskManager(Options.LOGIN, this).execute(nameValuePairs);
     }
 
     private boolean credentialsPresent() {
-        return false;
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("userDetails", Context.MODE_PRIVATE);
+        username = sharedPreferences.getString(SharedPreferenceEnum.USERNAME.toString(), "");
+        password = sharedPreferences.getString(SharedPreferenceEnum.PASSWORD.toString(), "");
+        if (username.equals("") && password.equals("")) {
+            return false;
+        }
+        return true;
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_login, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -81,13 +87,93 @@ public class LoginActivity extends ActionBarActivity {
     }
 
     public void gotoRegistrationPage(View view) {
-        Intent registrationScreen = new Intent(getApplicationContext(),RegisterationActivity.class);
+        Intent registrationScreen = new Intent(getApplicationContext(), RegisterationActivity.class);
         startActivity(registrationScreen);
     }
 
     public void gotoHome(View view) {
-        Toast.makeText(getApplicationContext(),"CLicked",Toast.LENGTH_LONG).show();
-        Intent homeScreen = new Intent(getApplicationContext(),HomeActivity.class);
+        username = String.valueOf(usernameEditText.getText());
+        password = String.valueOf(passwordEditText.getText());
+
+        if (username.equals("") || password.equals("")) {
+            Toast.makeText(getApplicationContext(), "Enter both Fields", Toast.LENGTH_SHORT).show();
+        } else {
+            credentialsPresent = false;
+            login();
+        }
+    }
+
+    @Override
+    public void parseJSON(String jsonResponse) {
+        JSONObject userDetails = null;
+        JSONObject userPersonalInfo = null;
+        int userID;
+        String fname;
+        String lname;
+        String emailAddress;
+        String country;
+        String qualification;
+        String gender;
+        int contact;
+        String dob;
+        boolean status;
+
+        try {
+            userDetails = new JSONObject(jsonResponse);
+        } catch (JSONException e) {
+            Log.e("JSON", "Couldnt Create JSON from the string passed");
+            e.printStackTrace();
+        }
+
+        if (userDetails != null) {
+            try {
+                status = userDetails.getBoolean("success");
+                if (status && credentialsPresent) {
+                    switchScreen();
+                }
+                else if(status && !credentialsPresent){
+                    userID = userDetails.getInt("id");
+                    userPersonalInfo = userDetails.getJSONObject("user");
+
+                    fname = userPersonalInfo.getString(SharedPreferenceEnum.FIRST_NAME.toString());
+                    lname = userPersonalInfo.getString(SharedPreferenceEnum.LAST_NAME.toString());
+                    contact = userPersonalInfo.getInt(SharedPreferenceEnum.CONTACT.toString());
+                    country = userPersonalInfo.getString(SharedPreferenceEnum.COUNTRY.toString());
+                    qualification = userPersonalInfo.getString(SharedPreferenceEnum.QUALIFICATION.toString());
+                    emailAddress = userPersonalInfo.getString(SharedPreferenceEnum.EMAIL.toString());
+                    gender = userPersonalInfo.getString(SharedPreferenceEnum.GENDER.toString());
+                    dob = userPersonalInfo.getString(SharedPreferenceEnum.DOB.toString());
+
+                    //store to shared Preferences
+                    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("userDetails",Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString(SharedPreferenceEnum.USERNAME.toString(),username);
+                    editor.putString(SharedPreferenceEnum.PASSWORD.toString(),password);
+//                    editor.putString(SharedPreferenceEnum.EMAIL.toString(),emailAddress);
+                    editor.putString(SharedPreferenceEnum.FIRST_NAME.toString(),fname);
+                    editor.putString(SharedPreferenceEnum.LAST_NAME.toString(),lname);
+                    editor.putInt(SharedPreferenceEnum.CONTACT.toString(),contact);
+                    editor.putString(SharedPreferenceEnum.COUNTRY.toString(),country);
+                    editor.putString(SharedPreferenceEnum.QUALIFICATION.toString(),qualification);
+                    editor.putString(SharedPreferenceEnum.GENDER.toString(),gender);
+                    editor.putString(SharedPreferenceEnum.DOB.toString(),dob);
+                    editor.commit();
+
+                    switchScreen();
+
+                } else if(!status){
+                    Toast.makeText(getApplicationContext(), "invalid login details", Toast.LENGTH_LONG).show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+    }
+
+    private void switchScreen() {
+        Intent homeScreen = new Intent(getApplicationContext(), TestActivity.class);
         startActivity(homeScreen);
     }
 }

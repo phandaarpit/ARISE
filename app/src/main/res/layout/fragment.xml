@@ -6,11 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="THIS IS SAMPLE TEXT"
-        android:layout_gravity="center"
-        android:textColor="#000000"
-        android:gravity="center_horizontal|center_vertical"/>
+        android:id="@+id/list_course_lectures"
+        android:layout_margin="8dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp" />
+
 </LinearLayout>

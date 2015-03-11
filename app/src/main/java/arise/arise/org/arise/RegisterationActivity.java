@@ -3,37 +3,29 @@ package arise.arise.org.arise;
 import android.app.DatePickerDialog;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
+import org.arise.enums.Options;
+import org.arise.interfaces.IAsyncInterface;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 
-public class RegisterationActivity extends ActionBarActivity {
+public class RegisterationActivity extends ActionBarActivity implements IAsyncInterface{
 
     EditText fname,lname,email,password,dob,contact,country,qual;
     RadioButton male,female;
@@ -104,6 +96,8 @@ public class RegisterationActivity extends ActionBarActivity {
     }
 
     public void registerNewUser(View v) throws IOException {
+        String jsonResponse = "";
+
         String first_name = String.valueOf(fname.getText());
         String last_name = String.valueOf(lname.getText());
         String emailId = String.valueOf(email.getText());
@@ -139,12 +133,18 @@ public class RegisterationActivity extends ActionBarActivity {
 
         try
         {
-            new AsyncTaskManager().execute(nameValuePairs);
+            new AsyncTaskManager(Options.SIGNUP,this).execute(nameValuePairs);
         }
         catch(Exception e)
         {
             System.out.println("Fucked");
         }
 
+        Toast.makeText(getApplicationContext(),jsonResponse,Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void parseJSON(String jsonResponse) {
+        Log.d("Inside Activity","Response: "+jsonResponse);
     }
 }

@@ -15,17 +15,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="10dp"
-        android:paddingRight="5dp">
+        android:paddingTop="10dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="25dp">
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp">
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -35,190 +34,224 @@
         </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/username_back">
+                android:background="@drawable/username_back"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp">
 
                 <EditText
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/fname"
-                    android:layout_gravity="center"
                     android:background="@drawable/username_background"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
                     android:paddingStart="10dp"
-                    android:paddingEnd="10dp" />
+                    android:paddingEnd="10dp"
+                    android:hint="first name"
+                    android:inputType="text"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_gravity="center_vertical" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/username_back">
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/username_back"
+                android:layout_gravity="center_horizontal">
 
                 <EditText
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/lname"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="15dp"
                     android:background="@drawable/username_background"
-                    android:layout_marginRight="20dp"
-                    android:layout_gravity="center" />
+                    android:layout_marginRight="15dp"
+                    android:layout_gravity="center"
+                    android:paddingEnd="10dp"
+                    android:paddingStart="10dp"
+                    android:hint="last name"
+                    android:inputType="text" />
             </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/username_back">
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/username_back"
+            android:layout_gravity="center_horizontal">
 
             <EditText
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/email"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="15dp"
                 android:background="@drawable/username_background"
-                android:layout_marginRight="20dp"
-                android:layout_gravity="center" />
+                android:layout_marginRight="15dp"
+                android:layout_gravity="center"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp"
+                android:hint="email"
+                android:inputType="text" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:background="@drawable/username_back"
-            android:layout_gravity="center">
+            android:layout_gravity="center_horizontal">
 
             <EditText
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:id="@+id/password"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="15dp"
                 android:background="@drawable/username_background"
-                android:layout_marginRight="20dp"
-                android:layout_gravity="center" />
+                android:layout_marginRight="15dp"
+                android:layout_gravity="center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:hint="password" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/username_back">
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/username_back"
+            android:layout_gravity="center_horizontal">
 
             <EditText
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/dob"
                 android:inputType="date"
                 android:onClick="setDate"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="15dp"
                 android:background="@drawable/username_background"
                 android:layout_gravity="center"
-                android:layout_marginRight="20dp" />
+                android:layout_marginRight="15dp"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp"
+                android:hint="date of birth " />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:background="@drawable/username_back">
+            android:background="@drawable/username_back"
+            android:layout_gravity="center_horizontal">
 
             <RadioGroup
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:id="@+id/gender"
-                android:layout_gravity="center"
-                android:layout_marginLeft="65dp">
+                android:layout_gravity="center">
 
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:id="@+id/male"
                     android:layout_height="wrap_content"
                     android:text="@string/gender_male"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_gravity="left" />
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="50dp" />
 
                 <RadioButton
                     android:id="@+id/female"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/gender_female"
-                    android:layout_marginLeft="5dp"
-                    android:layout_gravity="right" />
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginRight="50dp"
+                    android:layout_marginLeft="20dp" />
                 </RadioGroup>
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/username_back">
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/username_back"
+            android:layout_gravity="center_horizontal">
 
             <EditText
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/contact"
                 android:inputType="text"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="15dp"
                 android:layout_gravity="center"
                 android:background="@drawable/username_background"
-                android:layout_marginRight="20dp" />
+                android:layout_marginRight="15dp"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp"
+                android:hint="contact" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/username_back">
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/username_back"
+            android:layout_gravity="center_horizontal">
 
             <EditText
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/country"
                 android:inputType="text"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="15dp"
                 android:background="@drawable/username_background"
-                android:layout_marginRight="20dp"
-                android:layout_gravity="center" />
+                android:layout_marginRight="15dp"
+                android:layout_gravity="center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:hint="country" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/username_back">
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/username_back"
+            android:layout_gravity="center_horizontal">
 
             <EditText
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/qual"
                 android:inputType="text"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 android:layout_gravity="center"
-                android:background="@drawable/username_background" />
+                android:background="@drawable/username_background"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp"
+                android:hint="qualification" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp">
+            android:layout_marginRight="20dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="40dp">
 
             <Button
                 android:layout_width="match_parent"
