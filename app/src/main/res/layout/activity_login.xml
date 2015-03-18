@@ -132,6 +132,17 @@
                 android:layout_marginTop="5dp"
                 android:onClick="gotoRegistrationPage"
                 android:id="@+id/link_to_registration"
+                android:layout_marginBottom="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/forgot_password_text"
+                android:clickable="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
+                android:onClick="forgotPassword"
+                android:id="@+id/forgot_password"
                 android:layout_marginBottom="25dp" />
         </LinearLayout>
     </LinearLayout>

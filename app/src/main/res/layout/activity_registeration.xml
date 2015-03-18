@@ -133,6 +133,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/dob"
+                android:focusable="false"
                 android:inputType="date"
                 android:onClick="setDate"
                 android:layout_marginLeft="15dp"
@@ -165,7 +166,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/gender_male"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="50dp" />
+                    android:layout_marginLeft="50dp"
+                    android:textColor="#fff" />
 
                 <RadioButton
                     android:id="@+id/female"
@@ -174,7 +176,8 @@
                     android:text="@string/gender_female"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginRight="50dp"
-                    android:layout_marginLeft="20dp" />
+                    android:layout_marginLeft="20dp"
+                    android:textColor="#fff" />
                 </RadioGroup>
 
         </LinearLayout>

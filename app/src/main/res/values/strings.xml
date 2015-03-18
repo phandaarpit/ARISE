@@ -33,7 +33,24 @@
         <item>Logout</item>
     </string-array>
 
-    <string name="title_activity_about_arise">AboutArise</string>
-    <string name="title_activity_about_user">AboutUser</string>
+    <string name="title_activity_about_arise">About Arise</string>
+    <string name="title_activity_about_user">About User</string>
+    <string name="about_arise">Act to Rise for Innovation in Special Education (ARISE) Impact is a mission oriented non-profit enabling self-learning for differently-abled. Since 2010, we are developing and disseminating self- learning content, games and apps for the differently-abled. Our capstone service is delivering Special Education Modules for visually challenged. We have conducted in-classroom on-ground research studies to model the learning mechanism of visually challenged children</string>
+    <string name="link_to_arise">Get to Know us better!</string>
+    <string name="about_user_fname">First Name</string>
+    <string name="about_user_lname">Last Name</string>
+    <string name="about_user_email">Email Address</string>
+    <string name="about_user_contact">Contact Number</string>
+    <string name="about_user_retype_password">Retype Password</string>
+    <string name="about_user_new_password">New Password</string>
+    <string name="about_user_main_heading">About You</string>
+    <string name="title_activity_course_details">Course Details</string>
+    <string name="title_activity_play_lecture">Playing Lecture</string>
+    <string name="oldPass">Old Password</string>
+    <string name="newPassword">New Password</string>
+    <string name="pressToEdit">Edit Details</string>
+    <string name="saveEditDetails">Save Details</string>
+    <string name="confirm">Confirm Password</string>
+    <string name="forgot_password_text">Forgot Password? Click here</string>
 
 </resources>

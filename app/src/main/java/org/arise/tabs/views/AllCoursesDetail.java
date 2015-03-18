@@ -7,10 +7,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.Toast;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.arise.adapters.CoursesListAdapter;
+import org.arise.enums.CourseRequestType;
+import org.arise.enums.CourseStatus;
 import org.arise.enums.Options;
 import org.arise.interfaces.IAsyncInterface;
+import org.arise.listeners.CourseListListener;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import arise.arise.org.arise.AsyncTaskManager;
 import arise.arise.org.arise.R;
@@ -19,7 +30,11 @@ import arise.arise.org.arise.R;
  * Created by Arpit Phanda on 3/5/2015.
  */
 public class AllCoursesDetail extends Fragment implements IAsyncInterface{
-    static int count = 0;
+    private final String url ="http://ariseimpactapps.in/audiolearningapp/course_details.php";
+    JSONArray courses;
+    private View layout;
+    private ListView list;
+
     public AllCoursesDetail()
     {
 
@@ -27,15 +42,17 @@ public class AllCoursesDetail extends Fragment implements IAsyncInterface{
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View layout = inflater.inflate(R.layout.fragment,container,false);
-        ListView list = (ListView) layout.findViewById(R.id.list_course_lectures);
-
+        layout = inflater.inflate(R.layout.fragment,container,false);
+        list = (ListView) layout.findViewById(R.id.list_course_lectures);
         return layout;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        new AsyncTaskManager(Options.GET_ALL_COURSES,this).execute();
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+        nameValuePairs.add(new BasicNameValuePair(CourseRequestType.TYPE.toString(), CourseRequestType.ALL.toString()));
+        nameValuePairs.add(new BasicNameValuePair("url", url));
+        new AsyncTaskManager(Options.ALL_COURSES,this, getActivity()).execute(nameValuePairs);
 
         super.onCreate(savedInstanceState);
 
@@ -43,6 +60,24 @@ public class AllCoursesDetail extends Fragment implements IAsyncInterface{
 
     @Override
     public void parseJSON(String jsonResponse) {
+        JSONObject completeResponse;
+        JSONArray courses;
+        boolean status;
 
+        try {
+            completeResponse = new JSONObject(jsonResponse);
+            status = completeResponse.getBoolean("success");
+            if(status)
+            {
+                courses = completeResponse.getJSONArray("courses");
+                this.courses = courses;
+                //added a new parameter to keep a check on status of the course
+                list.setAdapter(new CoursesListAdapter(getActivity(),this.courses, CourseStatus.ALL));
+                list.setOnItemClickListener(new CourseListListener(getActivity(),courses, CourseStatus.ALL));
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

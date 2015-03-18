@@ -33,7 +33,10 @@ public class BaseActivity extends ActionBarActivity {
     public void setContentView(int layoutResID) {
         DrawerLayout fullLayout = (DrawerLayout)getLayoutInflater().inflate(R.layout.activity_home,null);
         LinearLayout mainContent = (LinearLayout)fullLayout.findViewById(R.id.main_home);
+        DrawerLayout drawerLayout = (DrawerLayout) fullLayout.findViewById(R.id.drawer_layout);
 
+        NavigationDrawer drawer = (NavigationDrawer)getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
+//        drawer.setUpDrawer(drawerLayout,toolbar, R.id.fragment_navigation_drawer);
         getLayoutInflater().inflate(layoutResID, mainContent,true);
         super.setContentView(fullLayout);
     }

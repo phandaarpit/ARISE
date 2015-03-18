@@ -2,6 +2,7 @@ package org.arise.fragments;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,8 +16,10 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import org.arise.adapters.NavigationListAdapter;
+import org.arise.enums.SharedPreferenceEnum;
 import org.arise.listeners.NavigationDrawerListener;
 
+import arise.arise.org.arise.LoginActivity;
 import arise.arise.org.arise.R;
 
 /**
@@ -41,8 +44,6 @@ public class NavigationDrawer extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("Inside Drawer", "calling");
-
         userAwareOfDrawer = Boolean.valueOf(readFromPreferences(getActivity(),userKnowsDrawerExistKey,"false"));
 
         if(savedInstanceState!=null)
@@ -50,6 +51,7 @@ public class NavigationDrawer extends Fragment {
             fromSavedInstance = true;
         }
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
